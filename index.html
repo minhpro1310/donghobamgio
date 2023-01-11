@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600&amp;display=swap"
+        rel="stylesheet">
+    <script>
+        var trueusn = 'admin';
+        var truepass = 'admin8a3';
+    </script>
+</head>
+
+<body>
+    <div id="loginform">
+        <h1 style="color:white;text-align: center;">Login</h1>
+        <input style="text-align: center;" type="text" id="usn" placeholder="Tên đăng nhập" /><br>
+        <input style="text-align: center;" type="password" id="pa" placeholder="Mật khẩu" />
+        <a href="#login?true" onclick="verifyuser();">Login</a>
+    </div>
+    <script>
+        function verifyuser() {
+            var ndqmdz = document.getElementById('usn').value;
+            var pas = document.getElementById('pa').value;
+            if (ndqmdz == trueusn && pas === truepass) {
+                document.getElementById('pass').style.display = 'block';
+                document.getElementById('loginform').style.display = 'none';
+            }
+            else {
+                document.writeln('<h1>Password sai, vui lòng tải lại trang và nhập lại');
+            }
+        }
+    </script>
+    <div id="pass" style="display:none;">
+        <div class="container">
+            <h1 class="timer">
+                <span class="minutes">00</span> :
+                <span class="seconds">00</span> .
+                <span class="milliseconds">000</span>
+            </h1>
+            <ol class="lapContainer"></ol>
+            <div class="bottomPart">
+                <div class="btns">
+                    <button class="reset">Reset</button>
+                    <button class="toggle">Start</button>
+                    <button class="lap">Lap</button>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>©Copyright by NguyenDangQuangMinh, bảo lưu mọi bản quyền.</p>
+        </div>
+    </div>
+</body>
+<style>
+    //Chèn link font google
+    //
+    div#loginform {
+        text-align: center;
+        color: : white;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        height: 100vh;
+        background-color: black;
+        display: flex;
+    }
+
+    .container {
+        margin: auto;
+        width: 500px;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+    }
+
+    .timer {
+        font-size: 76px;
+        font-weight: lighter;
+        color: #fff;
+        width: 410px;
+        margin-left: 20px;
+    }
+
+    .bottomPart {
+        width: 100%;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .copyright {
+        align-self: flex-start;
+        color: #fff;
+        text-decoration: none;
+        font-size: 10pt;
+        font-weight: 500;
+        text-shadow: 2px 2px 2px #0BB1CE;
+    }
+
+    .copyright:hover {
+        text-shadow: #474747 3px 5px 2px, 2px 2px 2px rgba(31, 206, 40, 0);
+    }
+
+    .btns {
+        width: 300px;
+        height: 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .btns button {
+        width: 80px;
+        height: 80px;
+        background-color: transparent;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        text-transform: uppercase;
+        font-weight: bold;
+        cursor: pointer;
+        outline: none;
+        box-shadow: 0px 20px 30px 0px rgba(0, 0, 0, 0.5);
+    }
+
+    .btns .toggle {
+        transition: all 0.3s ease;
+        background: rgb(105, 201, 48);
+        background: radial-gradient(circle, rgba(105, 201, 48, 1) 0%, rgba(48, 182, 40, 1) 100%);
+        z-index: 1;
+    }
+
+    .btns .toggle:active,
+    .btns .reset:active,
+    .btns .lap:active {
+        transform: scale(0.9);
+    }
+
+    .btns .toggle.on {
+        background-color: #d92027;
+    }
+
+    .btns .reset,
+    .btns .lap {
+        transition: all 0.3s ease;
+    }
+
+    .lapContainer {
+        width: 200px;
+        height: 150px;
+        color: #fff;
+        padding-left: 30px;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .lapItem {
+        width: 120px;
+        height: 30px;
+        font-size: 18px;
+        border-bottom: 1px solid #fff;
+        margin-bottom: 5px;
+    }
+
+    ::-webkit-scrollbar {
+        width: 15px;
+
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #ff9234;
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #ff7600;
+    }
+</style>
+<script>
+    //StopWatch
+    function Stopwatch(elem) {
+        var time = 0;
+        var offset;
+        var interval;
+
+        function lapOn() {
+            var lapTime = lapContainer.appendChild(document.createElement("li"))
+            lapTime.innerHTML = elem.textContent;
+            lapTime.classList = 'lapItem'
+        }
+
+        function lapOff() {
+            return;
+        }
+
+        function update() {
+            if (this.isOn) {
+                time += delta();
+            }
+            elem.textContent = timeFormatter(time);
+        }
+
+        function delta() {
+            var now = Date.now();
+            var timePassed = now - offset;
+
+            offset = now;
+
+            return timePassed;
+        }
+
+        function timeFormatter(time) {
+            time = new Date(time);
+
+            var minutes = time.getMinutes().toString();
+            var seconds = time.getSeconds().toString();
+            var milliseconds = time.getMilliseconds().toString();
+
+            if (minutes.length < 2) {
+                minutes = '0' + minutes;
+            }
+
+            if (seconds.length < 2) {
+                seconds = '0' + seconds;
+            }
+
+            while (milliseconds.length < 3) {
+                milliseconds = '0' + milliseconds;
+            }
+
+            var result = minutes + ' : ' + seconds + ' . ' + milliseconds;
+
+            return result;
+        }
+
+        this.start = function () {
+            interval = setInterval(update.bind(this), 1);
+            offset = Date.now();
+            this.isOn = true;
+        };
+
+        this.stop = function () {
+            clearInterval(interval);
+            interval = null;
+            this.isOn = false;
+        };
+
+        this.reset = function () {
+            time = 0;
+            lapContainer.innerHTML = '';
+            interval = null;
+            this.isOn = false;
+            update();
+        };
+
+        this.lapOn = function () {
+            lapOn();
+        }
+
+        this.lapOff = function () {
+            lapOff();
+        }
+
+        this.isOn = false;
+    }
+
+    //Main
+    var timer = document.querySelector('.timer');
+    var toggleBtn = document.querySelector('.toggle');
+    var resetBtn = document.querySelector('.reset');
+    var lapBtn = document.querySelector('.lap');
+    var lapContainer = document.querySelector('.lapContainer')
+
+    var watch = new Stopwatch(timer);
+
+    function start() {
+        toggleBtn.textContent = 'Stop';
+        toggleBtn.classList.toggle("on");
+        watch.start();
+    }
+
+    function stop() {
+        toggleBtn.textContent = 'Start';
+        toggleBtn.classList.toggle("on")
+        watch.stop();
+    }
+
+    function stopWhenOn() {
+        toggleBtn.textContent = 'Start';
+        toggleBtn.classList.toggle("on")
+        watch.stop();
+        watch.reset();
+    }
+
+    toggleBtn.addEventListener('click', function () {
+        watch.isOn ? stop() : start();
+    });
+
+    resetBtn.addEventListener('click', function () {
+        watch.isOn ? stopWhenOn() : watch.reset();
+        // stop();
+    });
+
+    lapBtn.addEventListener('click', function () {
+        watch.isOn ? watch.lapOn() : watch.lapOff();
+    })
+</script>
+
+</html>
